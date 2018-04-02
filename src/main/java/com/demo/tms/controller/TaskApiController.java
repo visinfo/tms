@@ -19,7 +19,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.demo.tms.model.Task;
 import com.demo.tms.service.TaskService;
-import com.demo.tms.util.CustomErrorType;
 
 
 @RestController
@@ -65,7 +64,7 @@ public class TaskApiController {
 
 		if (task == null) {
 			logger.error("Unable to update. Task with id {} not found.", todoTask.getId());
-			return new ResponseEntity(new CustomErrorType("Unable to upate. Task with id " + todoTask.getId() + " not found."),
+			return new ResponseEntity("Unable to upate. Task with id " + todoTask.getId() + " not found.",
 					HttpStatus.NOT_FOUND);
 		}
 
@@ -77,12 +76,12 @@ public class TaskApiController {
 
 	@RequestMapping(value = "/task", method = RequestMethod.DELETE)
 	public ResponseEntity<?> deleteTask(@RequestBody String id) {
-		logger.info("Fetching & Deleting Task with id {}", id);
+		logger.info("Fetching & Deleting  with id {}", id);
 		long taskid =Long.parseLong(id);
 		Task task = taskService.getTask(Long.parseLong(id));
 		if (task== null) {
 			logger.error("Unable to delete. Task with id {} not found.", id);
-			return new ResponseEntity(new CustomErrorType("Unable to delete. Task with id " + id + " not found."),
+			return new ResponseEntity("Unable to delete. Task with id " + id + " not found.",
 					HttpStatus.NOT_FOUND);
 		}
 		taskService.deleteTask(Long.parseLong(id));
